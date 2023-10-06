@@ -19,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
     String type = "";
     double first;
     double d = 0.0;
+    Boolean bool1=false;
+    Boolean bool2=false;
+    Boolean bool3=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,26 +32,49 @@ public class MainActivity extends AppCompatActivity {
         et2 = findViewById(R.id.et2);
         et3 = findViewById(R.id.et3);
     }
+    /**
+     * This function will be called when the user will press the button
+     * It checks if all the parameters are normal and if so calls the next function "go"
+     */
     public void next(View view) {
-        type = et1.getText().toString();
-        first = Double.parseDouble(et2.getText().toString());
-        d = Double.parseDouble(et3.getText().toString());
-        if(type.equals("Invoicing")==false && type.equals("Engineering")==false){
-            Toast.makeText(this, "you need to choose between Invoicing or Engineering", Toast.LENGTH_SHORT).show();
+        if((et1.getText().toString().equals("")==false) && (et2.getText().toString().equals("")==false) && (et2.getText().toString().equals("")==false)){
             type = et1.getText().toString();
-        }
-        if(first<-1000000.0 || first>1000000.0){
-            Toast.makeText(this, "you need to choose a number between -1000000 to 1000000", Toast.LENGTH_SHORT).show();
             first = Double.parseDouble(et2.getText().toString());
-        }
-        if(d<-1000000.0 || d>1000000.0){
-            Toast.makeText(this, "you need to choose a number between -1000000 to 1000000", Toast.LENGTH_SHORT).show();
             d = Double.parseDouble(et3.getText().toString());
+            if(type.equals("Invoicing")==true || type.equals("Engineering")==true){
+                bool1 = true;
+            }
+            else{
+                Toast.makeText(this, "you need to choose between Invoicing or Engineering", Toast.LENGTH_SHORT).show();
+                type = et1.getText().toString();
+            }
+            if(first>-1000000.0 && first<1000000.0){
+                bool2=true;
+            }
+            else{
+                Toast.makeText(this, "you need to choose a number between -1000000 to 1000000", Toast.LENGTH_SHORT).show();
+                first = Double.parseDouble(et2.getText().toString());
+            }
+            if(d>-1000000.0 && d<1000000.0){
+                bool3=true;
+            }
+            else{
+                Toast.makeText(this, "you need to choose a number between -1000000 to 1000000", Toast.LENGTH_SHORT).show();
+                d = Double.parseDouble(et3.getText().toString());
+            }
+            if(bool1 && bool2 && bool3){
+                go();
+            }
         }
-        if((type.equals("Invoicing")==true || type.equals("Engineering")==true) && (first>-1000000.0 && first<1000000.0) && (d>-1000000.0 && d<1000000.0)){
-            go();
+        else{
+            Toast.makeText(this, "you did not enter everything requested", Toast.LENGTH_SHORT).show();
         }
+
     }
+    /**
+     * This function will be called after the user will press the button if all the inputs are  normal
+     * It sends the intent with 3 needed parameters to the next activity
+     */
     public void go(){
         Intent si = new Intent(MainActivity.this, Credits_Activity.class);
         si.putExtra("Type", type);
