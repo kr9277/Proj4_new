@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
      * It sends the intent with 3 needed parameters to the next activity
      */
     public void go(){
-        Intent si = new Intent(MainActivity.this, Credits_Activity.class);
+        Intent si = new Intent(MainActivity.this, Show_Activity.class);
         si.putExtra("Type", type);
         si.putExtra("First", first);
         si.putExtra("delta", d);

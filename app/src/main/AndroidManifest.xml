@@ -16,6 +16,9 @@
             android:name=".Credits_Activity"
             android:exported="false" />
         <activity
+            android:name=".Show_Activity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
