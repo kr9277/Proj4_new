@@ -1,8 +1,8 @@
 package com.example.proj4_new;
 /** @author Created by karin on 29/9/2023.
  * @version 0.0
- * @since 29/9/2023
- *The application Shows the first 20 members in the series and when you long press on one of the members the context menu appears
+ * @since 25/11/2023
+ *The application Shows the first 20 members in the series and when you long press on one of the members the context menu appears, and there is a button which sends you to the credits Activity.
  */
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,12 +29,14 @@ public class Show_Activity extends AppCompatActivity implements AdapterView.OnIt
     double sum = 0;
     String chosen;
     int n=0;
+    Button btn1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
         tv = findViewById(R.id.tv);
+        btn1 = findViewById(R.id.btn1);
         lv = (ListView) findViewById(R.id.lv);
         gi = getIntent();
         lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -56,8 +59,8 @@ public class Show_Activity extends AppCompatActivity implements AdapterView.OnIt
         }
         ArrayAdapter<String> adp = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, arr_string);
         lv.setAdapter(adp);
-        lv.setOnItemLongClickListener((AdapterView.OnItemLongClickListener) Show_Activity.this);
-        lv.setOnCreateContextMenuListener(Show_Activity.this);
+        lv.setOnItemLongClickListener((AdapterView.OnItemLongClickListener) this);
+        lv.setOnCreateContextMenuListener(this);
     }
     /**
      * The operation accepts as a variable parameter an AdapterView, View, the position of the term and the id of the choosen term
@@ -97,5 +100,17 @@ public class Show_Activity extends AppCompatActivity implements AdapterView.OnIt
         menu.setHeaderTitle("Choose one of the options below:");
         menu.add("the place of the choosen term");
         menu.add("sum from the firs term to this:");
+    }
+    /**
+     * go_credits method
+     * <p> Reacting the button
+     * </p>
+     *
+     * @param view the view that triggered the method
+     * The method sends the intent to the credits activity
+     */
+    public void go_credits(View view){
+        Intent si = new Intent(Show_Activity.this, Credits_Activity.class);
+        startActivity(si);
     }
 }
